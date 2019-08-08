@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package muServerImpl;
+
+message HelloRequest {
+    string arg1 = 1;
+    string arg2 = 2;
+}
+
+message HelloResponse {
+    string arg1 = 1;
+    string arg2 = 2;
+}
+
+service ProtoFS2Greeter {
+    rpc sayHelloFS2 (HelloRequest) returns (stream HelloResponse);
+}

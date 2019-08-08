@@ -1,0 +1,7 @@
+scrape_configs:
+  - job_name: 'fs2_server_report'
+
+    static_configs:
+      - targets: ['localhost:9001']
+        labels:
+          group: 'fs2_server_report'
