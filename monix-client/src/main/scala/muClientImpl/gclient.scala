@@ -10,7 +10,7 @@ object gclient {
 
   trait Implicits extends CommonRuntime {
 
-    val channelFor: ChannelFor = ChannelForAddress("localhost", 8080)
+    val channelFor: ChannelFor = ChannelForAddress("localhost", 9000)
 
     implicit val serviceClient: Resource[IO, ProtoMonixGreeter[IO]] =
       ProtoMonixGreeter.client[IO](channelFor)

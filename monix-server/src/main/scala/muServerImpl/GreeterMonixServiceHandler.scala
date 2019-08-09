@@ -10,8 +10,8 @@ class GreeterMonixServiceHandler[F[_]: Concurrent]
   override def sayHelloMonix(
     req: GreeterServiceMonix.HelloRequest
   ): Observable[GreeterServiceMonix.HelloResponse] =
-    Observable
-      .range(0, 11)
-      .map(i => HelloResponse("Good bye", req.arg2 + i))
+    Observable.fromIterable(
+      Iterable.tabulate(8)(i => HelloResponse("Good bye", req.arg2 + i))
+    )
 
 }

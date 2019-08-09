@@ -19,16 +19,12 @@ object ClientMain extends IOApp {
     {
       for {
         _ <- logger.info("Starting monix client.")
-        /* result <- serviceClient.use(
+        res <- serviceClient.use(
           _.sayHelloMonix(HelloRequest("Hello", "client"))
             .consumeWith(consumer)
             .toAsync[IO]
-        )*/
-        res <- Observable
-          .range(0, 11)
-          .map(i => HelloResponse("Good bye", "client" + i))
-          .consumeWith(consumer)
-          .toAsync[IO]
+        )
+        _ <- logger.info("Ending monix client.")
       } yield res
     }.attempt
       .map(_.fold(e => {
