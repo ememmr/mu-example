@@ -1,5 +1,5 @@
 syntax = "proto3";
-//TODO: comprobar que este ejemplo está en la nueva version de la docu  que hice
+
 package muServerImpl;
 
 message HelloRequest {

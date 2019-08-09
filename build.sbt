@@ -52,7 +52,7 @@ lazy val monixClient: Project = project
   .in(file("monix-client"))
   .settings(catsSettings)
   .settings(logSettings)
-  .settings(clientNettySettings) //TODO: OKhttp
+  .settings(clientOkhttpSettings)
   .settings(monixSettings)
   .settings(configMuSettings)
   .settings(jodatimeMarshallerSettings)

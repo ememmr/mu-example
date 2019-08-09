@@ -5,9 +5,9 @@ import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.jmx.JmxReporter
 import higherkindness.mu.rpc.dropwizard._
 import higherkindness.mu.rpc.internal.interceptors.GrpcMethodInfo
-import muServerImpl.GreeterService.ProtoGreeter
 import higherkindness.mu.rpc.server._
 import higherkindness.mu.rpc.server.interceptors.implicits._
+import muServerImpl.GreeterService.ProtoGreeter
 
 object RPCServer {
 

@@ -5,8 +5,8 @@ import com.codahale.metrics.jmx.JmxReporter
 import higherkindness.mu.rpc.dropwizard.DropWizardMetrics
 import io.chrisdavenport.log4cats.SelfAwareStructuredLogger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
-import muServerImpl.GreeterService.{HelloRequest, SERVING}
 import muClienteImpl.gclient.implicits._
+import muServerImpl.GreeterService.HelloRequest
 object ClientMain extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {

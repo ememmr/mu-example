@@ -4,8 +4,10 @@ import io.chrisdavenport.log4cats.SelfAwareStructuredLogger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import io.prometheus.client.CollectorRegistry
 import fs2._
+import higherkindness.mu.rpc.prometheus.PrometheusMetrics
 import muServerImpl.GreeterServiceFS2.ProtoFS2Greeter
-
+import higherkindness.mu.rpc.server.interceptors.implicits._
+import higherkindness.mu.rpc.server.metrics.MetricsServerInterceptor
 object RPCFS2Server {
 
   import muServerImpl.gserver.implicits._
@@ -20,20 +22,19 @@ object RPCFS2Server {
     val runServer = for {
       _ <- logger.info("Starting fs2 server.")
       service <- ProtoFS2Greeter.bindService[IO]
-      // metricsOps <- PrometheusMetrics.build[IO](cr, "fs2_server_report")
-      // grpcConfig: AddService = AddService(
-      //   service
-      //     .interceptWith(MetricsServerInterceptor(metricsOps, Some("metrics")))
-      // )
+      metricsOps <- PrometheusMetrics.build[IO](cr, "fs2_server_report")
+      grpcConfig: AddService = AddService(
+        service
+          .interceptWith(MetricsServerInterceptor(metricsOps, Some("metrics")))
+      )
       server <- GrpcServer
-        .default[IO](8080, List(AddService(service))) //, grpcConfig))
+        .default[IO](8080, List(AddService(service), grpcConfig))
       runServer <- GrpcServer.server[IO](server)
     } yield runServer
 
-    runServer.unsafeRunSync()
     //http://localhost:9001/metrics
-    //Stream(Stream.eval(runServer), exportMetrics(cr, 9001, "localhost")).parJoinUnbounded.compile.drain
-    //  .unsafeRunSync()
+    Stream(Stream.eval(runServer), exportMetrics(cr, 9001, "localhost")).parJoinUnbounded.compile.drain
+      .unsafeRunSync()
   }
 
 }

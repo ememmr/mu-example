@@ -1,8 +1,8 @@
 import cats.effect.{IO, Resource}
 import io.grpc.{ManagedChannel, ServerServiceDefinition}
 import org.scalatest._
-import muServerImpl.GreeterService.{HelloRequest, HelloResponse, ProtoGreeter}
 import higherkindness.mu.rpc.testing.servers.withServerChannel
+import muServerImpl.GreeterService.{HelloRequest, HelloResponse, ProtoGreeter}
 
 class ServerTest extends FunSuite with Matchers with OneInstancePerTest {
 
